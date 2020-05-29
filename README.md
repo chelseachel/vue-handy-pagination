@@ -1,8 +1,8 @@
 # vue-pagination
-```
-开发中……
-效果预览 [demo](https://codepen.io/chelseachel/full/JjYQOZj)
-开放API设置页数 / 颜色 / 样式
+a Vue.js (2.x+) pagination component.<br>
+Under development...
+Providing simple API, and you can customize pages, color and other styles very easily.<br>
+[Online demo](https://codepen.io/chelseachel/full/JjYQOZj) <br>
 
 ## Project setup
 ```
