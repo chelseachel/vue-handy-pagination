@@ -1,8 +1,8 @@
 # vue-pagination
 a Vue.js (2.x+) pagination component.<br>
-Still under development...<br>
 Providing simple API, and you can customize pages, color and other styles very easily.<br>
 [Online demo](https://codepen.io/chelseachel/full/JjYQOZj) <br>
+Docs under development...<br>
 
 ## Project setup
 ```
