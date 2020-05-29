@@ -18,15 +18,38 @@
 <script>
 export default {
   name: 'Pagination',
-  data() {
-    return {
-      totalPages: 28,
-      currentPage: 10,
-      ellipsis: '···',
-      pre: 'Prev',
-      next: 'Next',
-      color: '#cca8bb',
-      background: '#fff'
+  props: {
+    totalPages: {
+      type: Number,
+      default: 28
+    },
+    currentPage: {
+      type: Number,
+      default: 1
+    },
+    ellipsis: {
+      default: '···'
+    },
+    pre: {
+      default: 'Prev'
+    },
+    next: {
+      default: 'Next'
+    },
+    color: {
+      type: String,
+      default: '#cca8bb'
+    },
+    background: {
+      type: String,
+      default: '#fff'
+    },
+    weight: {
+      default: 'normal'
+    },
+    font: {
+      type: String,
+      default: 'Avenir, Helvetica, Arial, sans-serif'
     }
   },
   computed: {
@@ -63,10 +86,26 @@ export default {
     setColor(color, background) {
       this.$el.style.setProperty('--theme-color', color)
       this.$el.style.setProperty('--background-color', background)
-    },   
+    },
+    setWeight(weight) {
+      if (weight === 'normal') {
+        this.$el.style.setProperty('--border-width', '2px')
+        this.$el.style.setProperty('--font-weight', '600')
+        this.$el.style.setProperty('--ellips-size', '24px')
+      }
+      else if (weight === 'light') {
+        this.$el.style.setProperty('--border-width', '1px')
+        this.$el.style.setProperty('--font-weight', '400')
+      }
+    },
+    setFont(font) {
+      this.$el.style.setProperty('--font-family', font)
+    }
   },
   mounted () {
     this.setColor(this.color, this.background)
+    this.setFont(this.font)
+    this.setWeight(this.weight)
   }
 }
 </script>
@@ -77,6 +116,9 @@ export default {
     -moz-osx-font-smoothing grayscale
     --theme-color: #cca8bb
     --background-color: #fff
+    --font-family: Avenir, Helvetica, Arial, sans-serif
+    --border-width: 2px
+    --font-weight: 600
     margin: 0
     padding: 0
     .pages
@@ -89,14 +131,14 @@ export default {
         min-width: 38px 
         background-color: var(--background-color)
         border-radius: 38px
-        border: 2px solid var(--theme-color)
+        border: var(--border-width) solid var(--theme-color)
         color: var(--theme-color)
         display: inline-block
         line-height: 38px
         text-align: center
         font-size: 14px
-        font-family Avenir, Helvetica, Arial, sans-serif
-        font-weight: 600
+        font-family: var(--font-family)
+        font-weight: var(--font-weight)
         text-decoration: none
         cursor: pointer
         white-space:nowrap
