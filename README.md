@@ -1,4 +1,8 @@
 # vue-pagination
+```
+开发中……
+效果预览 [demo](https://codepen.io/chelseachel/full/JjYQOZj)
+开放API设置页数 / 颜色 / 样式
 
 ## Project setup
 ```

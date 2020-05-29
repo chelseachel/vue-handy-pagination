@@ -1,8 +1,10 @@
 import Vue from 'vue'
-import App from './App.vue'
+import Pagination from './components/Pagination.vue'
 
 Vue.config.productionTip = false
 
 new Vue({
-  render: h => h(App),
-}).$mount('#app')
+  render: h => h(Pagination),
+}).$mount('#pagination')
+
+/* eslint-disable */

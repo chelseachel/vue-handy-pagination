@@ -1,5 +1,5 @@
 <template>
-  <div class="pages-container">
+  <div class="pages-container" id="pagination">
     <ul class="pages">
       <li class="page" @click="handleClickControl(-1)">{{this.pre}}</li>
       <li class="page" 
@@ -21,11 +21,12 @@ export default {
   data() {
     return {
       totalPages: 28,
-      currentPage: 1,
+      currentPage: 10,
       ellipsis: '···',
       pre: 'Prev',
       next: 'Next',
-      color: '#bba8bb'
+      color: '#cca8bb',
+      background: '#fff'
     }
   },
   computed: {
@@ -59,20 +60,23 @@ export default {
       if (this.currentPage === 1 && n === -1 || this.currentPage === this.totalPages && n === 1) return
       this.currentPage += n
     },
-    setColor() {
-      this.$el.style.setProperty('--theme-color', this.color)
-    },
-    
+    setColor(color, background) {
+      this.$el.style.setProperty('--theme-color', color)
+      this.$el.style.setProperty('--background-color', background)
+    },   
   },
   mounted () {
-    this.setColor()
+    this.setColor(this.color, this.background)
   }
 }
 </script>
 
 <style lang="stylus" scoped>
   .pages-container
-    --theme-color: #bba8bb
+    -webkit-font-smoothing antialiased
+    -moz-osx-font-smoothing grayscale
+    --theme-color: #cca8bb
+    --background-color: #fff
     margin: 0
     padding: 0
     .pages
@@ -83,7 +87,7 @@ export default {
         margin: 0 3px
         height: 38px
         min-width: 38px 
-        background-color: #fff
+        background-color: var(--background-color)
         border-radius: 38px
         border: 2px solid var(--theme-color)
         color: var(--theme-color)
@@ -105,12 +109,12 @@ export default {
         &:hover
           background-color: var(--theme-color)
           border-color: var(--theme-color)
-          color: #fff
+          color: var(--background-color)
           opacity: .5
       .active
         background-color: var(--theme-color)
         border-color: var(--theme-color)
-        color: #fff
+        color: var(--background-color)
         &:hover
           opacity: 1
       .ellipsis
