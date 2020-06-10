@@ -23,7 +23,7 @@ export default {
       type: Number,
       default: 28
     },
-    currentPage: {
+    initialPage: {
       type: Number,
       default: 1
     },
@@ -50,6 +50,11 @@ export default {
     font: {
       type: String,
       default: 'Avenir, Helvetica, Arial, sans-serif'
+    }
+  },
+  data () {
+    return {
+      currentPage: this.initialPage
     }
   },
   computed: {
