@@ -31,8 +31,8 @@ Use the source file in browser.
   initialPage="1">
 </pagination>
 ```
-### Example
-#### Bind a variable.
+#### Example
+Bind a variable.
 ```vue
 <template>
   <pagination 
@@ -52,7 +52,31 @@ export default {
   }
 </script>
 ```
-#### Listen for a custom event ```@pageChanged``` when page get changed.
+Bind different variables, to customize color or other styles. Please reference the props below.
+```vue
+<template>
+  <pagination 
+    :totalPages="totalPages"
+    :color="color"
+    :background="background"
+    weight="'light'">
+  </pagination>
+</template>
+
+<script>
+export default {
+  name: 'App',
+  data () {
+    return {
+      totalPages: 28,
+      color: '#cca8bb',
+      background: '#fffafa'
+    }
+  }
+</script>
+```
+### Custom Event
+Listen for a custom event ```@pageChanged``` when page get changed.
 ```vue
 <template>
   <pagination 
@@ -72,30 +96,6 @@ export default {
   methods: {
     getCurrentPage(page) {
       console.log(page)
-    }
-  }
-</script>
-```
-
-#### Bind different variables, to customize color or other styles. Please reference the props below.
-```vue
-<template>
-  <pagination 
-    :totalPages="totalPages"
-    :color="color"
-    :background="background"
-    weight="'light'">
-  </pagination>
-</template>
-
-<script>
-export default {
-  name: 'App',
-  data () {
-    return {
-      totalPages: 28,
-      color: '#cca8bb',
-      background: '#fffafa'
     }
   }
 </script>
