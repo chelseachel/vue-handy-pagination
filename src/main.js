@@ -7,4 +7,5 @@ new Vue({
   render: h => h(Pagination),
 }).$mount('#pagination')
 
+export default Pagination
 /* eslint-disable */
