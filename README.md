@@ -75,7 +75,7 @@ export default {
 </script>
 ```
 ### Props
-Props | Description | Default | Type 
+Name | Description | Default | Type 
 -|-|-|-
 ```totalPages``` | Total count of pages. | 20| ```Number``` 
 ```initialPage``` | Set a default page. | 1| ```Number``` 
