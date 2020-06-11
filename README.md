@@ -27,11 +27,12 @@ Use the source file in browser.
 ### Basic Usage
 ```vue
 <pagination 
-  :totalPages="28"
-  :initialPage="1">
+  totalPages="28"
+  initialPage="1">
 </pagination>
 ```
 #### Example
+Bind a variable.
 ```vue
 <template>
   <pagination 
@@ -51,8 +52,7 @@ export default {
   }
 </script>
 ```
-### Customize style
-Assign a value to a prop to customize color or other styles. Please reference the props below.
+Bind different variables, to customize color or other styles. Please reference the props below.
 #### Example
 ```vue
 <template>
@@ -60,7 +60,7 @@ Assign a value to a prop to customize color or other styles. Please reference th
     :totalPages="totalPages"
     :color="color"
     :background="background"
-    :weight="weight">
+    weight="'light'">
   </pagination>
 </template>
 
@@ -71,8 +71,7 @@ export default {
     return {
       totalPages: 28,
       color: '#cca8bb',
-      background: '#fffafa',
-      weight: 'light'
+      background: '#fffafa'
     }
   }
 </script>
@@ -80,12 +79,12 @@ export default {
 ### Props
 Name | Description | Default | Type 
 -|-|-|-
-```totalPages``` | Total count of pages. | 20| ```Number``` 
-```initialPage``` | Set a default page. | 1| ```Number``` 
-```pre``` | Set text for button Prev. | Prev| ```String``` 
-```next``` | Set text for button Next. | Next| ```String``` 
-```color``` | Customize theme color, which will set the font color and the border color. | #666666| ```String``` 
-```background``` | Customize background color. | #FFFFFF| ```String``` 
+```totalPages``` | Total count of pages. | 20 | ```Number``` 
+```initialPage``` | Set a default page. | 1 | ```Number``` 
+```pre``` | Set text for button Prev. | 'Prev' | ```String``` 
+```next``` | Set text for button Next. | 'Next' | ```String``` 
+```color``` | Customize theme color, which will set the font color and the border color. | '#666666' | ```String``` 
+```background``` | Customize background color. | '#FFFFFF' | ```String``` 
 ```weight``` | Pagination style. Providing two kinds of style: **normal** or **light**. | normal| ```String``` 
-```ellipsis``` | Set text for the break view indicator. | ···| ```String``` 
-```font``` | Set a font-family. | Avenir| ```String``` 
+```ellipsis``` | Set text for the break view indicator. | '···' | ```String``` 
+```font``` | Set a font-family. | 'Avenir' | ```String``` 
