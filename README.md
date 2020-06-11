@@ -19,7 +19,7 @@ import Pagination from 'Pagination'
 Vue.use(Pagination)
 ```
 ### CDN
-Use CDN in browser.
+Use the source file in browser.
 ```js
 <script src=""></script>
 ```
