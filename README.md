@@ -12,7 +12,7 @@ Providing simple API, to customize pages, color and other styles very easily.<br
 ```
 npm install vue-handy-pagination --save
 ```
-#### Import the component
+Import the component. 
 ```js
 import Pagination from 'Pagination'
 Vue.use(Pagination)
