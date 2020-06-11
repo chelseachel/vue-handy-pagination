@@ -50,6 +50,8 @@ export default {
 </script>
 ```
 ### Customize style
+Reference the props below. <br>
+Assign a value to a prop to customize color or other styles.
 #### Example
 ```vue
 <template>
