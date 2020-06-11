@@ -9,6 +9,7 @@ Providing simple API, to customize pages, color and other styles very easily.<br
 
 ## Installation
 ### NPM
+Install the npm package.
 ```
 npm install vue-handy-pagination --save
 ```
@@ -18,8 +19,9 @@ import Pagination from 'Pagination'
 Vue.use(Pagination)
 ```
 ### CDN
-```
-
+Use CDN in browser.
+```js
+<script src=""></script>
 ```
 ## Usage
 ### Basic Usage
