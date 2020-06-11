@@ -21,6 +21,7 @@ Vue.use(Pagination)
 ### CDN
 Use the source file in browser.
 ```js
+<link href=""></link>
 <script src=""></script>
 ```
 ## Usage
