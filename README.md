@@ -11,22 +11,21 @@ Docs under development...<br>
 npm install vue-handy-pagination --save
 ```
 import the component:
-```
+```js
 import Pagination from 'Pagination'
-
 Vue.use(Pagination)
 ```
 ## Usage
 ---
 ### Basic Usage
-```
+```js
 <pagination 
   :totlePages="28"
   :initialPage="1">
 </pagination>
 ```
 ### Example
-```
+```js
 <template>
   <pagination 
     :totlePages="totlePages"
