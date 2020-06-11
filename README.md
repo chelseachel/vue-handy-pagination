@@ -52,6 +52,31 @@ export default {
   }
 </script>
 ```
+Listen for a custom event when page get changed.
+```vue
+<template>
+  <pagination 
+    :totalPages="totalPages"
+    @pageChanged="getCurrentPage(page)">
+  </pagination>
+</template>
+
+<script>
+export default {
+  name: 'App',
+  data () {
+    return {
+      totalPages: 28,
+    }
+  },
+  methods: {
+    getCurrentPage(page) {
+      console.log(page)
+    }
+  }
+</script>
+```
+
 Bind different variables, to customize color or other styles. Please reference the props below.
 #### Example
 ```vue
@@ -88,3 +113,8 @@ Name | Description | Default | Type
 ```weight``` | Pagination style. Providing two kinds of style: **normal** or **light**. | normal| ```String``` 
 ```ellipsis``` | Set text for the break view indicator. | '···' | ```String``` 
 ```font``` | Set a font-family. | 'Avenir' | ```String``` 
+
+### Events
+Event |Description | Example
+-|-|-
+pageChanged | This event will be triggered whenever page get changed. <br>The callback receives the current page number as an argument. | ```@pageChanged="getCurrentPage(page)"```
