@@ -12,7 +12,7 @@ Providing simple API, to customize pages, color and other styles very easily.<br
 ```
 npm install vue-handy-pagination --save
 ```
-#### Register the component
+#### Import the component
 ```js
 import Pagination from 'Pagination'
 Vue.use(Pagination)
@@ -83,6 +83,6 @@ Props | Description | Default | Type
 ```next``` | Set text for button Next. | Next| ```String``` 
 ```color``` | Customize theme color, which will set the font color and the border color. | #666666| ```String``` 
 ```background``` | Customize background color. | #FFFFFF| ```String``` 
-```weight``` | Pagination style, providing two values: **normal** or **light** | normal| ```String``` 
+```weight``` | Pagination style. Providing two kinds of style: **normal** or **light**. | normal| ```String``` 
 ```ellipsis``` | Set text for the break view indicator. | ···| ```String``` 
-```font``` | Set font-family. | Avenir| ```String``` 
+```font``` | Set a font-family. | Avenir| ```String``` 
