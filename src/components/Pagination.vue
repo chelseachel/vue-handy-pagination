@@ -21,30 +21,34 @@ export default {
   props: {
     totalPages: {
       type: Number,
-      default: 28
+      default: 20
     },
     initialPage: {
       type: Number,
       default: 1
     },
     ellipsis: {
+      type: String,
       default: '···'
     },
     pre: {
+      type: String,
       default: 'Prev'
     },
     next: {
+      type: String,
       default: 'Next'
     },
     color: {
       type: String,
-      default: '#cca8bb'
+      default: '#666'
     },
     background: {
       type: String,
       default: '#fff'
     },
     weight: {
+      type: String,
       default: 'normal'
     },
     font: {
@@ -83,10 +87,12 @@ export default {
       if (this.currentPage === item) return
       if (item === this.ellipsis) return
       this.currentPage = item
+      this.$emit('changePage', this.currentPage)
     },
     handleClickControl(n) {
       if (this.currentPage === 1 && n === -1 || this.currentPage === this.totalPages && n === 1) return
       this.currentPage += n
+      this.$emit('changePage', this.currentPage)
     },
     setColor(color, background) {
       this.$el.style.setProperty('--theme-color', color)
@@ -119,7 +125,7 @@ export default {
   .pages-container
     -webkit-font-smoothing antialiased
     -moz-osx-font-smoothing grayscale
-    --theme-color: #cca8bb
+    --theme-color: #666
     --background-color: #fff
     --font-family: Avenir, Helvetica, Arial, sans-serif
     --border-width: 2px
