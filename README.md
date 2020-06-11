@@ -52,7 +52,7 @@ export default {
   }
 </script>
 ```
-#### Listen for a custom event when page get changed.
+#### Listen for a custom event ```@pageChanged``` when page get changed.
 ```vue
 <template>
   <pagination 
