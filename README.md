@@ -15,6 +15,7 @@ npm install vue-handy-pagination --save
 ```
 Import the component. 
 ```js
+import Vue from 'vue'
 import Pagination from 'Pagination'
 Vue.use(Pagination)
 ```
@@ -77,12 +78,12 @@ export default {
 </script>
 ```
 ### Custom Event
-Listen for a custom event ```@pageChanged``` when page get changed.
+Listen for a custom event ```@changePage``` when page get changed.
 ```vue
 <template>
   <pagination 
     :totalPages="totalPages"
-    @pageChanged="getCurrentPage(page)">
+    @changePage="getCurrentPage(page)">
   </pagination>
 </template>
 
@@ -117,4 +118,4 @@ Name | Description | Default | Type
 ### Events
 Event |Description | Example
 -|-|-
-pageChanged | This event will be triggered whenever page get changed. <br>The callback receives the current page number as an argument. | ```@pageChanged="getCurrentPage(page)"```
+changePage | This event will be triggered whenever page get changed. <br>The callback receives the current page number as an argument. | ```@changePage="getCurrentPage(page)"```
