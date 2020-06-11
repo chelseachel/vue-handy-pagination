@@ -1,28 +1,47 @@
-# vue-pagination
-a Vue.js (2.x+) pagination component.<br>
+# vue-handy-pagination
+a Vue.js pagination component.<br>
 Providing simple API, and you can customize pages, color and other styles very easily.<br>
 [Online demo](https://codepen.io/chelseachel/full/JjYQOZj) <br>
 Docs under development...<br>
 
-## Project setup
+## Installation
+---
+### NPM
 ```
-npm install
+npm install vue-handy-pagination --save
 ```
+import the component:
+```
+import Pagination from 'Pagination'
 
-### Compiles and hot-reloads for development
+Vue.use(Pagination)
 ```
-npm run serve
+## Usage
+---
+### Basic Usage
 ```
+<pagination 
+  :totlePages="28"
+  :initialPage="1">
+</pagination>
+```
+### Example
+```
+<template>
+  <pagination 
+    :totlePages="totlePages"
+    :initialPage="initialPage">
+  </pagination>
+</template>
 
-### Compiles and minifies for production
+<script>
+export default {
+  name: 'App',
+  data () {
+    return {
+      totlePages: 28,
+      initialPage: 10
+    }
+  }
+</script>
 ```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
