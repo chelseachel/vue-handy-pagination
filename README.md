@@ -28,8 +28,8 @@ Use the source file in browser.
 ### Basic Usage
 ```vue
 <pagination 
-  totalPages="28"
-  initialPage="1">
+  :totalPages="28"
+  :initialPage="1">
 </pagination>
 ```
 #### Example
@@ -60,7 +60,7 @@ Bind different variables, to customize color or other styles. Please reference t
     :totalPages="totalPages"
     :color="color"
     :background="background"
-    weight="'light'">
+    :weight="'light'">
   </pagination>
 </template>
 
@@ -118,4 +118,4 @@ Name | Description | Default | Type
 Event |Description | Example
 -|-|-
 changePage | This event will be triggered whenever page get changed. <br>The callback receives the current page number as an argument. | ```@changePage="getCurrentPage(page)"```
->>>>>>> 32336b0973e888b2fe2a50b801b3ceb178127ab9
+

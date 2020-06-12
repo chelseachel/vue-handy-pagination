@@ -1,6 +1,6 @@
 {
   "name": "vue-handy-pagination",
-  "version": "0.1.1",
+  "version": "0.1.4",
   "main": "dist/vue.pagination.js",
   "scripts": {
     "serve": "vue-cli-service serve",
