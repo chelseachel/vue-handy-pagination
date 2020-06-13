@@ -22,7 +22,7 @@ Vue.use(Pagination)
 ### CDN
 Use the source file in browser.
 ```js
-<script src="https://unpkg.com/vue-handy-pagination@latest/dist/vue.pagination.js"></script>
+<script src="https://unpkg.com/vue-handy-pagination@latest/dist/index.js"></script>
 ```
 ## Usage
 ### Basic Usage
