@@ -7,7 +7,6 @@
     body {
       position: relative;
       background: rosybrown;
-      font-size: 15px;
     } 
     #app {
       margin: 0;
@@ -16,24 +15,39 @@
       margin-left: -490px;
       width: 980px;
       height: 100%;
-      padding-top: 80px;
+      margin-bottom: 60px; 
+      padding-top: 60px;
       padding-bottom: 80px;
       background: #fff;
     }
-    .github {
-      position: absolute;
-      left: -100px;
-      top: 20px;
-      width: 74px;
-      height: 28px;
-      line-height: 28px;
+    h1 {
+      position: relative;
       text-align: center;
+      font-family: Avenir;
+      font-size:  40px;
+      color: rosybrown;
+      line-height: 180px;
+      background: #fff;
+    }
+    h1 span {
+      font-weight: 400;
+    }
+    h1 a {
+      position: absolute;
+      top: 81px;
+      right: 200px;
+      font-size: 12px;
+      padding: 0 11px;
       font-weight: 300;
-      color: #fff;
-      background-color: rosybrown;
-      border-radius: 3px;
-      border: 1px solid #fff;
+      line-height: 20px;
+      color: rosybrown;
+      border-radius: 15px;
+      border: 1px solid rosybrown;
+      opacity: .7;
       text-decoration: none;
+    }
+    h1 a:visited {
+      color: rosybrown;
     }
     h3 {
       display: inline-block;
@@ -42,6 +56,7 @@
       padding: 0 16px;
       font-family: Avenir;
       font-weight: 400;
+      font-size: 15px;
       color: #FFF;
       line-height: 32px;
       background: rosybrown;
@@ -73,6 +88,7 @@
     .ellipsis {
       text-align: center;
       font-family: Avenir;
+      font-size:  40px;
       color: rosybrown;
     }
     .pages-container {
@@ -142,19 +158,22 @@
 </head>
 <body>
   <div id="app">
-    <a class="github" href="https://github.com/chelseachel/vue-handy-pagination">GitHub</a>
+    <h1>
+      <span>Vue Handy</span> Pagination
+      <a href="https://github.com/chelseachel/vue-handy-pagination">GitHub</a>
+    </h1>
     <div class="egs">
       <div class="eg">      
         <pagination></pagination>
         <h3>Default Style</h3>
       </div>
-      <div class="eg">  
-        <pagination-a></pagination-a>
-        <h3>Customized Color</h3>
-      </div>
       <div class="eg">      
         <pagination-b></pagination-b>
         <h3>Light Style</h3>
+      </div>
+      <div class="eg">  
+        <pagination-a></pagination-a>
+        <h3>Customized Color</h3>
       </div>
     </div>
     <p class="ellipsis">  
