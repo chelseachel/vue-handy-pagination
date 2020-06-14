@@ -4,7 +4,8 @@
 <br>
 A Vue.js pagination component.<br>
 Providing simple API, to customize pages, color and other styles very easily.<br>
-[Online Demo](https://chelseachel.github.io/vue-handy-pagination/) <br>
+<br>
+**[Online Demo](https://chelseachel.github.io/vue-handy-pagination/)** <br>
 <br>
 
 ## Installation
@@ -54,7 +55,7 @@ export default {
 </script>
 ```
 Bind different variables, to customize color or other styles. Please reference the props below. <br>
-[View Demo](https://chelseachel.github.io/vue-handy-pagination/) <br>
+**[* View demo.](https://chelseachel.github.io/vue-handy-pagination/)** <br>
 ```vue
 <template>
   <pagination 
@@ -103,7 +104,7 @@ export default {
   }
 </script>
 ```
-### Props
+## Props
 Name | Description | Default | Type 
 -|-|-|-
 ```totalPages``` | Total count of pages. | 20 | ```Number``` 
@@ -116,7 +117,7 @@ Name | Description | Default | Type
 ```ellipsis``` | Set text for the break view indicator. | '···' | ```String``` 
 ```font``` | Set a font-family. | 'Avenir' | ```String``` 
 
-### Events
+## Events
 Event |Description | Example
 -|-|-
 changePage | This event will be triggered whenever page get changed. <br>The callback receives the current page number as an argument. | ```@changePage="getCurrentPage(page)"```
