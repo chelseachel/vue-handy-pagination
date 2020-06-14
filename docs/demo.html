@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue Handy Pagination</title>
+  <style type="text/css">
+    body {
+      position: relative;
+      background: rosybrown;
+    } 
+    #app {
+      margin: 0;
+      position: relative;
+      left: 50%;
+      margin-left: -490px;
+      width: 980px;
+      height: 100%;
+      margin-bottom: 60px; 
+      padding-top: 60px;
+      padding-bottom: 80px;
+      background: #fff;
+    }
+    h1 {
+      position: relative;
+      text-align: center;
+      font-family: Avenir;
+      font-size:  40px;
+      color: rosybrown;
+      line-height: 180px;
+      background: #fff;
+    }
+    h1 span {
+      font-weight: 400;
+    }
+    h1 a {
+      position: absolute;
+      top: 81px;
+      right: 200px;
+      font-size: 12px;
+      padding: 0 11px;
+      font-weight: 300;
+      line-height: 20px;
+      color: rosybrown;
+      border-radius: 15px;
+      border: 1px solid rosybrown;
+      opacity: .7;
+      text-decoration: none;
+    }
+    h1 a:visited {
+      color: rosybrown;
+    }
+    h3 {
+      display: inline-block;
+      margin-left: 50%;
+      transform: translateX(-50%);
+      padding: 0 16px;
+      font-family: Avenir;
+      font-weight: 400;
+      font-size: 15px;
+      color: #FFF;
+      line-height: 32px;
+      background: rosybrown;
+      opacity: .7;
+      border-radius: 2px;
+    }
+    h3::before {
+      content: "";
+      position: absolute;
+      top: -4px;
+      left: 46%;
+      width: 10px;
+      height: 10px;
+      background-color: rosybrown;
+      transform: rotate(45deg);
+    }
+    .egs {
+      width: 980px;
+      height: 750px;
+      border-radius: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .eg {
+      margin: 30px 0;
+      overflow: hidden;
+    }
+    .ellipsis {
+      text-align: center;
+      font-family: Avenir;
+      font-size:  40px;
+      color: rosybrown;
+    }
+    .pages-container {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      --theme-color: #2c3e50;
+      --background-color: #fff;
+      --font-family: Avenir, Helvetica, Arial, sans-serif;
+      --border-width: 2px;
+      --font-weight: 600;
+      margin: 0;
+      padding: 0;
+    }
+    .pages-container .pages {
+      position: relative;
+      padding: 20px 0;
+      text-align: center;
+    }
+    .pages-container .pages .page {
+      margin: 0 3px;
+      height: 38px;
+      min-width: 38px;
+      background-color: var(--background-color);
+      border-radius: 38px;
+      border: var(--border-width) solid var(--theme-color);
+      color: var(--theme-color);
+      display: inline-block;
+      line-height: 38px;
+      text-align: center;
+      font-size: 14px;
+      font-family: var(--font-family);
+      font-weight: var(--font-weight);
+      text-decoration: none;
+      cursor: pointer;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: background-color .1s;
+    }
+    .pages-container .pages .page:first-child,
+    .pages-container .pages .page:last-child {
+      padding: 0 16px;
+      margin: 0 12px;
+    }
+    .pages-container .pages .page:hover {
+      background-color: var(--theme-color);
+      border-color: var(--theme-color);
+      color: var(--background-color);
+      opacity: 0.5;
+    }
+    .pages-container .pages .active {
+      background-color: var(--theme-color);
+      border-color: var(--theme-color);
+      color: var(--background-color);
+    }
+    .pages-container .pages .active:hover {
+      opacity: 1;
+    }
+    .pages-container .pages .ellipsis {
+      background-color: transparent;
+      border-color: transparent;
+      font-size: 24px;
+      margin: 0 5px;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>
+      <span>Vue Handy</span> Pagination
+      <a href="https://github.com/chelseachel/vue-handy-pagination">GitHub</a>
+    </h1>
+    <div class="egs">
+      <div class="eg">      
+        <pagination></pagination>
+        <h3>Default Style</h3>
+      </div>
+      <div class="eg">      
+        <pagination-b></pagination-b>
+        <h3>Light Style</h3>
+      </div>
+      <div class="eg">  
+        <pagination-a></pagination-a>
+        <h3>Customized Color</h3>
+      </div>
+    </div>
+    <p class="ellipsis">  
+      ···
+    </p>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+  <script>
+    var Pagination = {
+      props: {
+        totalPages: {
+          type: Number,
+          default: 20
+        },
+        initialPage: {
+          type: Number,
+          default: 1
+        },
+        ellipsis: {
+          type: String,
+          default: '···'
+        },
+        pre: {
+          type: String,
+          default: 'Prev'
+        },
+        next: {
+          type: String,
+          default: 'Next'
+        },
+        color: {
+          type: String,
+          default: '#2c3e50'
+        },
+        background: {
+          type: String,
+          default: '#fff'
+        },
+        weight: {
+          type: String,
+          default: 'normal'
+        },
+        font: {
+          type: String,
+          default: 'Avenir, Helvetica, Arial, sans-serif'
+        }
+      },
+      template: `<div class="pages-container" id="pagination">
+                  <ul class="pages">
+                    <li class="page" @click="handleClickControl(-1)">{{this.pre}}</li>
+                    <li class="page" 
+                      v-for="(item, index) in pages" 
+                      :key="index"
+                      :class="{ellipsis: item === ellipsis, active: item === currentPage}"
+                      @click="handleClickActive(item)"
+                    >
+                      <span>{{item}}</span>
+                    </li>
+                    <li class="page" @click="handleClickControl(+1)">{{this.next}}</li>
+                  </ul>
+                </div>`,
+      data () {
+        return {
+          currentPage: this.initialPage
+        }
+      },
+      computed: {
+        pages() {
+          const c = this.currentPage
+          const t = this.totalPages
+          if (t <= 11) {
+            const pages = []
+            for (let i = 1; i <= t; i++) {
+              pages.push(i)
+            }
+            return pages
+          } else {
+            let pages = []
+            if (c <= 6) {
+              pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, this.ellipsis, t]
+            } else if (c >= t - 5) {
+              pages = [1, this.ellipsis, t-8, t-7, t-6, t-5, t-4, t-3, t-2, t-1, t]
+            } else {
+              pages = [1, this.ellipsis, c-3, c-2, c-1, c, c+1, c+2, c+3, this.ellipsis,t]
+            }
+            return pages
+          }
+        }
+      },
+      methods: {
+        handleClickActive(item) {
+          if (this.currentPage === item) return
+          if (item === this.ellipsis) return
+          this.currentPage = item
+          this.$emit('changePage', this.currentPage)
+        },
+        handleClickControl(n) {
+          if (this.currentPage === 1 && n === -1 || this.currentPage === this.totalPages && n === 1) return
+          this.currentPage += n
+          this.$emit('changePage', this.currentPage)
+        },
+        setColor(color, background) {
+          this.$el.style.setProperty('--theme-color', color)
+          this.$el.style.setProperty('--background-color', background)
+        },
+        setWeight(weight) {
+          if (weight === 'normal') {
+            this.$el.style.setProperty('--border-width', '2px')
+            this.$el.style.setProperty('--font-weight', '600')
+            this.$el.style.setProperty('--ellips-size', '24px')
+          }
+          else if (weight === 'light') {
+            this.$el.style.setProperty('--border-width', '1px')
+            this.$el.style.setProperty('--font-weight', '400')
+          }
+        },
+        setFont(font) {
+          this.$el.style.setProperty('--font-family', font)
+        }
+      },
+      mounted () {
+        this.setColor(this.color, this.background)
+        this.setFont(this.font)
+        this.setWeight(this.weight)
+      }
+    }
+
+    var PaginationA = {
+      components: {
+        'pagination': Pagination
+      },
+      template: `<pagination 
+                  :totalPages="totalPages"
+                  :initialPage="initialPage"
+                  :color="color"
+                  ></pagination>`,
+      data() {
+        return {
+          totalPages: 28,
+          initialPage: 10,
+          color: "rosybrown",
+        }
+      }
+    }
+    var PaginationB = {
+      components: {
+        'pagination': Pagination
+      },
+      template: `<pagination 
+                  :totalPages="totalPages"
+                  :initialPage="initialPage"
+                  :weight="weight"
+                  ></pagination>`,
+      data() {
+        return {
+          totalPages: 20,
+          initialPage: 1,
+          weight: 'light'
+        }
+      }
+    }
+    Vue.component('pagination-a', PaginationA)
+    Vue.component('pagination-b', PaginationB)
+    new Vue({
+      el: '#app',
+      components: {
+        'pagination': Pagination,
+        
+      },
+      data() {
+        return {
+          
+        }
+      },
+    })
+  </script>
+
+</body>
+</html>

@@ -1,356 +1,909 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- saved from url=(0051)https://chelseachel.github.io/vue-handy-pagination/ -->
+<html>
+
 <head>
-  <meta charset="UTF-8">
-  <title>Document</title>
-  <style type="text/css">
-    body {
-      position: relative;
-      background: rosybrown;
-    } 
-    #app {
-      margin: 0;
-      position: relative;
-      left: 50%;
-      margin-left: -490px;
-      width: 980px;
-      height: 100%;
-      margin-bottom: 60px; 
-      padding-top: 60px;
-      padding-bottom: 80px;
-      background: #fff;
-    }
-    h1 {
-      position: relative;
-      text-align: center;
-      font-family: Avenir;
-      font-size:  40px;
-      color: rosybrown;
-      line-height: 180px;
-      background: #fff;
-    }
-    h1 span {
-      font-weight: 400;
-    }
-    h1 a {
-      position: absolute;
-      top: 81px;
-      right: 200px;
-      font-size: 12px;
-      padding: 0 11px;
-      font-weight: 300;
-      line-height: 20px;
-      color: rosybrown;
-      border-radius: 15px;
-      border: 1px solid rosybrown;
-      opacity: .7;
-      text-decoration: none;
-    }
-    h1 a:visited {
-      color: rosybrown;
-    }
-    h3 {
-      display: inline-block;
-      margin-left: 50%;
-      transform: translateX(-50%);
-      padding: 0 16px;
-      font-family: Avenir;
-      font-weight: 400;
-      font-size: 15px;
-      color: #FFF;
-      line-height: 32px;
-      background: rosybrown;
-      opacity: .7;
-      border-radius: 2px;
-    }
-    h3::before {
-      content: "";
-      position: absolute;
-      top: -4px;
-      left: 46%;
-      width: 10px;
-      height: 10px;
-      background-color: rosybrown;
-      transform: rotate(45deg);
-    }
-    .egs {
-      width: 980px;
-      height: 750px;
-      border-radius: 18px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .eg {
-      margin: 30px 0;
-      overflow: hidden;
-    }
-    .ellipsis {
-      text-align: center;
-      font-family: Avenir;
-      font-size:  40px;
-      color: rosybrown;
-    }
-    .pages-container {
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      --theme-color: #2c3e50;
-      --background-color: #fff;
-      --font-family: Avenir, Helvetica, Arial, sans-serif;
-      --border-width: 2px;
-      --font-weight: 600;
-      margin: 0;
-      padding: 0;
-    }
-    .pages-container .pages {
-      position: relative;
-      padding: 20px 0;
-      text-align: center;
-    }
-    .pages-container .pages .page {
-      margin: 0 3px;
-      height: 38px;
-      min-width: 38px;
-      background-color: var(--background-color);
-      border-radius: 38px;
-      border: var(--border-width) solid var(--theme-color);
-      color: var(--theme-color);
-      display: inline-block;
-      line-height: 38px;
-      text-align: center;
-      font-size: 14px;
-      font-family: var(--font-family);
-      font-weight: var(--font-weight);
-      text-decoration: none;
-      cursor: pointer;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      transition: background-color .1s;
-    }
-    .pages-container .pages .page:first-child,
-    .pages-container .pages .page:last-child {
-      padding: 0 16px;
-      margin: 0 12px;
-    }
-    .pages-container .pages .page:hover {
-      background-color: var(--theme-color);
-      border-color: var(--theme-color);
-      color: var(--background-color);
-      opacity: 0.5;
-    }
-    .pages-container .pages .active {
-      background-color: var(--theme-color);
-      border-color: var(--theme-color);
-      color: var(--background-color);
-    }
-    .pages-container .pages .active:hover {
-      opacity: 1;
-    }
-    .pages-container .pages .ellipsis {
-      background-color: transparent;
-      border-color: transparent;
-      font-size: 24px;
-      margin: 0 5px;
-      pointer-events: none;
-    }
-  </style>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
+
 <body>
-  <div id="app">
-    <h1>
-      <span>Vue Handy</span> Pagination
-      <a href="https://github.com/chelseachel/vue-handy-pagination">GitHub</a>
-    </h1>
-    <div class="egs">
-      <div class="eg">      
-        <pagination></pagination>
-        <h3>Default Style</h3>
-      </div>
-      <div class="eg">      
-        <pagination-b></pagination-b>
-        <h3>Light Style</h3>
-      </div>
-      <div class="eg">  
-        <pagination-a></pagination-a>
-        <h3>Customized Color</h3>
-      </div>
-    </div>
-    <p class="ellipsis">  
-      ···
-    </p>
-  </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
-  <script>
-    var Pagination = {
-      props: {
-        totalPages: {
-          type: Number,
-          default: 20
-        },
-        initialPage: {
-          type: Number,
-          default: 1
-        },
-        ellipsis: {
-          type: String,
-          default: '···'
-        },
-        pre: {
-          type: String,
-          default: 'Prev'
-        },
-        next: {
-          type: String,
-          default: 'Next'
-        },
-        color: {
-          type: String,
-          default: '#2c3e50'
-        },
-        background: {
-          type: String,
-          default: '#fff'
-        },
-        weight: {
-          type: String,
-          default: 'normal'
-        },
-        font: {
-          type: String,
-          default: 'Avenir, Helvetica, Arial, sans-serif'
-        }
-      },
-      template: `<div class="pages-container" id="pagination">
-                  <ul class="pages">
-                    <li class="page" @click="handleClickControl(-1)">{{this.pre}}</li>
-                    <li class="page" 
-                      v-for="(item, index) in pages" 
-                      :key="index"
-                      :class="{ellipsis: item === ellipsis, active: item === currentPage}"
-                      @click="handleClickActive(item)"
-                    >
-                      <span>{{item}}</span>
-                    </li>
-                    <li class="page" @click="handleClickControl(+1)">{{this.next}}</li>
-                  </ul>
-                </div>`,
-      data () {
-        return {
-          currentPage: this.initialPage
-        }
-      },
-      computed: {
-        pages() {
-          const c = this.currentPage
-          const t = this.totalPages
-          if (t <= 11) {
-            const pages = []
-            for (let i = 1; i <= t; i++) {
-              pages.push(i)
-            }
-            return pages
-          } else {
-            let pages = []
-            if (c <= 6) {
-              pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, this.ellipsis, t]
-            } else if (c >= t - 5) {
-              pages = [1, this.ellipsis, t-8, t-7, t-6, t-5, t-4, t-3, t-2, t-1, t]
-            } else {
-              pages = [1, this.ellipsis, c-3, c-2, c-1, c, c+1, c+2, c+3, this.ellipsis,t]
-            }
-            return pages
-          }
-        }
-      },
-      methods: {
-        handleClickActive(item) {
-          if (this.currentPage === item) return
-          if (item === this.ellipsis) return
-          this.currentPage = item
-          this.$emit('changePage', this.currentPage)
-        },
-        handleClickControl(n) {
-          if (this.currentPage === 1 && n === -1 || this.currentPage === this.totalPages && n === 1) return
-          this.currentPage += n
-          this.$emit('changePage', this.currentPage)
-        },
-        setColor(color, background) {
-          this.$el.style.setProperty('--theme-color', color)
-          this.$el.style.setProperty('--background-color', background)
-        },
-        setWeight(weight) {
-          if (weight === 'normal') {
-            this.$el.style.setProperty('--border-width', '2px')
-            this.$el.style.setProperty('--font-weight', '600')
-            this.$el.style.setProperty('--ellips-size', '24px')
-          }
-          else if (weight === 'light') {
-            this.$el.style.setProperty('--border-width', '1px')
-            this.$el.style.setProperty('--font-weight', '400')
-          }
-        },
-        setFont(font) {
-          this.$el.style.setProperty('--font-family', font)
-        }
-      },
-      mounted () {
-        this.setColor(this.color, this.background)
-        this.setFont(this.font)
-        this.setWeight(this.weight)
-      }
-    }
-
-    var PaginationA = {
-      components: {
-        'pagination': Pagination
-      },
-      template: `<pagination 
-                  :totalPages="totalPages"
-                  :initialPage="initialPage"
-                  :color="color"
-                  ></pagination>`,
-      data() {
-        return {
-          totalPages: 28,
-          initialPage: 10,
-          color: "rosybrown",
-        }
-      }
-    }
-    var PaginationB = {
-      components: {
-        'pagination': Pagination
-      },
-      template: `<pagination 
-                  :totalPages="totalPages"
-                  :initialPage="initialPage"
-                  :weight="weight"
-                  ></pagination>`,
-      data() {
-        return {
-          totalPages: 20,
-          initialPage: 1,
-          weight: 'light'
-        }
-      }
-    }
-    Vue.component('pagination-a', PaginationA)
-    Vue.component('pagination-b', PaginationB)
-    new Vue({
-      el: '#app',
-      components: {
-        'pagination': Pagination,
-        
-      },
-      data() {
-        return {
-          
-        }
-      },
-    })
-  </script>
-
+  <div class="line-gutter-backdrop"></div>
+  <table>
+    <tbody>
+      <tr>
+        <td class="line-number" value="1"></td>
+        <td class="line-content"><span class="html-doctype">&lt;!DOCTYPE html&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="2"></td>
+        <td class="line-content"><span class="html-tag">&lt;html <span class="html-attribute-name">lang</span>="<span class="html-attribute-value">en-US</span>"&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="3"></td>
+        <td class="line-content"> <span class="html-tag">&lt;head&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="4"></td>
+        <td class="line-content"> <span class="html-tag">&lt;meta <span class="html-attribute-name">charset</span>="<span class="html-attribute-value">UTF-8</span>"&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="5"></td>
+        <td class="line-content"><br></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="6"></td>
+        <td class="line-content"><span class="html-comment">&lt;!-- Begin Jekyll SEO tag v2.6.1 --&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="7"></td>
+        <td class="line-content"><span class="html-tag">&lt;title&gt;</span>vue-handy-pagination | A Vue.js pagination component, with handy customization.<span class="html-tag">&lt;/title&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="8"></td>
+        <td class="line-content"><span class="html-tag">&lt;meta <span class="html-attribute-name">name</span>="<span class="html-attribute-value">generator</span>" <span class="html-attribute-name">content</span>="<span class="html-attribute-value">Jekyll v3.8.7</span>" /&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="9"></td>
+        <td class="line-content"><span class="html-tag">&lt;meta <span class="html-attribute-name">property</span>="<span class="html-attribute-value">og:title</span>" <span class="html-attribute-name">content</span>="<span class="html-attribute-value">vue-handy-pagination</span>" /&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="10"></td>
+        <td class="line-content"><span class="html-tag">&lt;meta <span class="html-attribute-name">property</span>="<span class="html-attribute-value">og:locale</span>" <span class="html-attribute-name">content</span>="<span class="html-attribute-value">en_US</span>" /&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="11"></td>
+        <td class="line-content"><span class="html-tag">&lt;meta <span class="html-attribute-name">name</span>="<span class="html-attribute-value">description</span>" <span class="html-attribute-name">content</span>="<span class="html-attribute-value">A Vue.js pagination component, with handy customization.</span>" /&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="12"></td>
+        <td class="line-content"><span class="html-tag">&lt;meta <span class="html-attribute-name">property</span>="<span class="html-attribute-value">og:description</span>" <span class="html-attribute-name">content</span>="<span class="html-attribute-value">A Vue.js pagination component, with handy customization.</span>" /&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="13"></td>
+        <td class="line-content"><span class="html-tag">&lt;link <span class="html-attribute-name">rel</span>="<span class="html-attribute-value">canonical</span>" <span class="html-attribute-name">href</span>="<a class="html-attribute-value html-resource-link" target="_blank" href="https://chelseachel.github.io/vue-handy-pagination/" rel="noreferrer noopener">https://chelseachel.github.io/vue-handy-pagination/</a>" /&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="14"></td>
+        <td class="line-content"><span class="html-tag">&lt;meta <span class="html-attribute-name">property</span>="<span class="html-attribute-value">og:url</span>" <span class="html-attribute-name">content</span>="<span class="html-attribute-value">https://chelseachel.github.io/vue-handy-pagination/</span>" /&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="15"></td>
+        <td class="line-content"><span class="html-tag">&lt;meta <span class="html-attribute-name">property</span>="<span class="html-attribute-value">og:site_name</span>" <span class="html-attribute-name">content</span>="<span class="html-attribute-value">vue-handy-pagination</span>" /&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="16"></td>
+        <td class="line-content"><span class="html-tag">&lt;script <span class="html-attribute-name">type</span>="<span class="html-attribute-value">application/ld+json</span>"&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="17"></td>
+        <td class="line-content">{"@type":"WebSite","url":"https://chelseachel.github.io/vue-handy-pagination/","headline":"vue-handy-pagination","name":"vue-handy-pagination","description":"A Vue.js pagination component, with handy customization.","@context":"https://schema.org"}<span class="html-tag">&lt;/script&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="18"></td>
+        <td class="line-content"><span class="html-comment">&lt;!-- End Jekyll SEO tag --&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="19"></td>
+        <td class="line-content"><br></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="20"></td>
+        <td class="line-content"> <span class="html-tag">&lt;meta <span class="html-attribute-name">name</span>="<span class="html-attribute-value">viewport</span>" <span class="html-attribute-name">content</span>="<span class="html-attribute-value">width=device-width, initial-scale=1</span>"&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="21"></td>
+        <td class="line-content"> <span class="html-tag">&lt;meta <span class="html-attribute-name">name</span>="<span class="html-attribute-value">theme-color</span>" <span class="html-attribute-name">content</span>="<span class="html-attribute-value">#157878</span>"&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="22"></td>
+        <td class="line-content"> <span class="html-tag">&lt;link <span class="html-attribute-name">rel</span>="<span class="html-attribute-value">stylesheet</span>" <span class="html-attribute-name">href</span>="<a class="html-attribute-value html-resource-link" target="_blank" href="https://chelseachel.github.io/vue-handy-pagination/assets/css/style.css?v=c39e0d9baad9f2801c633520d8b13841c3535064" rel="noreferrer noopener">/vue-handy-pagination/assets/css/style.css?v=c39e0d9baad9f2801c633520d8b13841c3535064</a>"&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="23"></td>
+        <td class="line-content"> <span class="html-tag">&lt;/head&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="24"></td>
+        <td class="line-content"> <span class="html-tag">&lt;body&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="25"></td>
+        <td class="line-content"> <span class="html-tag">&lt;section <span class="html-attribute-name">class</span>="<span class="html-attribute-value">page-header</span>"&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="26"></td>
+        <td class="line-content"> <span class="html-tag">&lt;h1 <span class="html-attribute-name">class</span>="<span class="html-attribute-value">project-name</span>"&gt;</span>vue-handy-pagination<span class="html-tag">&lt;/h1&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="27"></td>
+        <td class="line-content"> <span class="html-tag">&lt;h2 <span class="html-attribute-name">class</span>="<span class="html-attribute-value">project-tagline</span>"&gt;</span>A Vue.js pagination component, with handy customization.<span class="html-tag">&lt;/h2&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="28"></td>
+        <td class="line-content"> </td>
+      </tr>
+      <tr>
+        <td class="line-number" value="29"></td>
+        <td class="line-content"> <span class="html-tag">&lt;a <span class="html-attribute-name">href</span>="<a class="html-attribute-value html-external-link" target="_blank" href="https://github.com/chelseachel/vue-handy-pagination" rel="noreferrer noopener">https://github.com/chelseachel/vue-handy-pagination</a>" <span class="html-attribute-name">class</span>="<span class="html-attribute-value">btn</span>"&gt;</span>View on GitHub<span class="html-tag">&lt;/a&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="30"></td>
+        <td class="line-content"> </td>
+      </tr>
+      <tr>
+        <td class="line-number" value="31"></td>
+        <td class="line-content"> </td>
+      </tr>
+      <tr>
+        <td class="line-number" value="32"></td>
+        <td class="line-content"> <span class="html-tag">&lt;/section&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="33"></td>
+        <td class="line-content"><br></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="34"></td>
+        <td class="line-content"> <span class="html-tag">&lt;section <span class="html-attribute-name">class</span>="<span class="html-attribute-value">main-content</span>"&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="37"></td>
+        <td class="line-content"><span class="html-tag">&lt;br /&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="38"></td>
+        <td class="line-content"><span class="html-tag">&lt;br /&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="39"></td>
+        <td class="line-content">A Vue.js pagination component.<span class="html-tag">&lt;br /&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="40"></td>
+        <td class="line-content">Providing simple API, to customize pages, color and other styles very easily.<span class="html-tag">&lt;br /&gt;</span></td>
+      </tr>
+  
+      <tr>
+        <td class="line-number" value="42"></td>
+        <td class="line-content"><span class="html-tag">&lt;br /&gt;</span><span class="html-tag">&lt;/p&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="43"></td>
+        <td class="line-content"><br></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="44"></td>
+        <td class="line-content"><span class="html-tag">&lt;h2 <span class="html-attribute-name">id</span>="<span class="html-attribute-value">installation</span>"&gt;</span>Installation<span class="html-tag">&lt;/h2&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="45"></td>
+        <td class="line-content"><span class="html-tag">&lt;h3 <span class="html-attribute-name">id</span>="<span class="html-attribute-value">npm</span>"&gt;</span>NPM<span class="html-tag">&lt;/h3&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="46"></td>
+        <td class="line-content"><span class="html-tag">&lt;p&gt;</span>Install the npm package.<span class="html-tag">&lt;/p&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="47"></td>
+        <td class="line-content"><span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">language-plaintext highlighter-rouge</span>"&gt;</span><span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">highlight</span>"&gt;</span><span class="html-tag">&lt;pre <span class="html-attribute-name">class</span>="<span class="html-attribute-value">highlight</span>"&gt;</span><span class="html-tag">&lt;code&gt;</span>npm install vue-handy-pagination --save</td>
+      </tr>
+      <tr>
+        <td class="line-number" value="48"></td>
+        <td class="line-content"><span class="html-tag">&lt;/code&gt;</span><span class="html-tag">&lt;/pre&gt;</span><span class="html-tag">&lt;/div&gt;</span><span class="html-tag">&lt;/div&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="49"></td>
+        <td class="line-content"><span class="html-tag">&lt;p&gt;</span>Import the component.<span class="html-tag">&lt;/p&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="50"></td>
+        <td class="line-content"><span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">language-js highlighter-rouge</span>"&gt;</span><span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">highlight</span>"&gt;</span><span class="html-tag">&lt;pre <span class="html-attribute-name">class</span>="<span class="html-attribute-value">highlight</span>"&gt;</span><span class="html-tag">&lt;code&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">k</span>"&gt;</span>import<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nx</span>"&gt;</span>Vue<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">k</span>"&gt;</span>from<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">dl</span>"&gt;</span>'<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">s1</span>"&gt;</span>vue<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">dl</span>"&gt;</span>'<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="51"></td>
+        <td class="line-content"><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">k</span>"&gt;</span>import<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nx</span>"&gt;</span>Pagination<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">k</span>"&gt;</span>from<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">dl</span>"&gt;</span>'<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">s1</span>"&gt;</span>Pagination<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">dl</span>"&gt;</span>'<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="52"></td>
+        <td class="line-content"><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nx</span>"&gt;</span>Vue<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>.<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nx</span>"&gt;</span>use<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>(<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nx</span>"&gt;</span>Pagination<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>)<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="53"></td>
+        <td class="line-content"><span class="html-tag">&lt;/code&gt;</span><span class="html-tag">&lt;/pre&gt;</span><span class="html-tag">&lt;/div&gt;</span><span class="html-tag">&lt;/div&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="54"></td>
+        <td class="line-content"><span class="html-tag">&lt;h3 <span class="html-attribute-name">id</span>="<span class="html-attribute-value">cdn</span>"&gt;</span>CDN<span class="html-tag">&lt;/h3&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="55"></td>
+        <td class="line-content"><span class="html-tag">&lt;p&gt;</span>Use the source file in browser.<span class="html-tag">&lt;/p&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="56"></td>
+        <td class="line-content"><span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">language-js highlighter-rouge</span>"&gt;</span><span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">highlight</span>"&gt;</span><span class="html-tag">&lt;pre <span class="html-attribute-name">class</span>="<span class="html-attribute-value">highlight</span>"&gt;</span><span class="html-tag">&lt;code&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">o</span>"&gt;</span>&amp;lt;<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nx</span>"&gt;</span>script<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nx</span>"&gt;</span>src<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">o</span>"&gt;</span>=<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">dl</span>"&gt;</span>"<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">s2</span>"&gt;</span>https://unpkg.com/vue-handy-pagination@latest/dist/vue.pagination.js<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">dl</span>"&gt;</span>"<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">o</span>"&gt;</span>&amp;gt;&amp;lt;<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">sr</span>"&gt;</span>/script<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">err</span>"&gt;</span>&amp;gt;</td>
+      </tr>
+      <tr>
+        <td class="line-number" value="57"></td>
+        <td class="line-content"><span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;/code&gt;</span><span class="html-tag">&lt;/pre&gt;</span><span class="html-tag">&lt;/div&gt;</span><span class="html-tag">&lt;/div&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="58"></td>
+        <td class="line-content"><span class="html-tag">&lt;h2 <span class="html-attribute-name">id</span>="<span class="html-attribute-value">usage</span>"&gt;</span>Usage<span class="html-tag">&lt;/h2&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="59"></td>
+        <td class="line-content"><span class="html-tag">&lt;h3 <span class="html-attribute-name">id</span>="<span class="html-attribute-value">basic-usage</span>"&gt;</span>Basic Usage<span class="html-tag">&lt;/h3&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="60"></td>
+        <td class="line-content"><span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">language-vue highlighter-rouge</span>"&gt;</span><span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">highlight</span>"&gt;</span><span class="html-tag">&lt;pre <span class="html-attribute-name">class</span>="<span class="html-attribute-value">highlight</span>"&gt;</span><span class="html-tag">&lt;code&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;lt;pagination<span class="html-tag">&lt;/span&gt;</span> </td>
+      </tr>
+      <tr>
+        <td class="line-number" value="61"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">na</span>"&gt;</span>:totalPages=<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">s</span>"&gt;</span>"28"<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="62"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">na</span>"&gt;</span>:initialPage=<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">s</span>"&gt;</span>"1"<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;gt;<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="63"></td>
+        <td class="line-content"><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;lt;/pagination&amp;gt;<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="64"></td>
+        <td class="line-content"><span class="html-tag">&lt;/code&gt;</span><span class="html-tag">&lt;/pre&gt;</span><span class="html-tag">&lt;/div&gt;</span><span class="html-tag">&lt;/div&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="65"></td>
+        <td class="line-content"><span class="html-tag">&lt;h4 <span class="html-attribute-name">id</span>="<span class="html-attribute-value">example</span>"&gt;</span>Example<span class="html-tag">&lt;/h4&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="66"></td>
+        <td class="line-content"><span class="html-tag">&lt;p&gt;</span>Bind a variable.<span class="html-tag">&lt;/p&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="67"></td>
+        <td class="line-content"><span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">language-vue highlighter-rouge</span>"&gt;</span><span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">highlight</span>"&gt;</span><span class="html-tag">&lt;pre <span class="html-attribute-name">class</span>="<span class="html-attribute-value">highlight</span>"&gt;</span><span class="html-tag">&lt;code&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;lt;<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">k</span>"&gt;</span>template<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;gt;<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="68"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;lt;pagination<span class="html-tag">&lt;/span&gt;</span> </td>
+      </tr>
+      <tr>
+        <td class="line-number" value="69"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">na</span>"&gt;</span>:totalPages=<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">s</span>"&gt;</span>"totalPages"<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="70"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">na</span>"&gt;</span>:initialPage=<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">s</span>"&gt;</span>"initialPage"<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;gt;<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="71"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;lt;/pagination&amp;gt;<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="72"></td>
+        <td class="line-content"><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;lt;/<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">k</span>"&gt;</span>template<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;gt;<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="73"></td>
+        <td class="line-content"><br></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="74"></td>
+        <td class="line-content"><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;lt;<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">k</span>"&gt;</span>script<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;gt;<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="75"></td>
+        <td class="line-content"><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">k</span>"&gt;</span>export<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">k</span>"&gt;</span>default<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>{<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="76"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">na</span>"&gt;</span>name<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>:<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">dl</span>"&gt;</span>'<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">s1</span>"&gt;</span>App<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">dl</span>"&gt;</span>'<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>,<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="77"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nx</span>"&gt;</span>data<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>()<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>{<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="78"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">k</span>"&gt;</span>return<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>{<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="79"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">na</span>"&gt;</span>totalPages<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>:<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">mi</span>"&gt;</span>28<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>,<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="80"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">na</span>"&gt;</span>initialPage<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>:<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">mi</span>"&gt;</span>10<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="81"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>}<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="82"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>}<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="83"></td>
+        <td class="line-content"><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;lt;/<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">k</span>"&gt;</span>script<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;gt;<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="84"></td>
+        <td class="line-content"><span class="html-tag">&lt;/code&gt;</span><span class="html-tag">&lt;/pre&gt;</span><span class="html-tag">&lt;/div&gt;</span><span class="html-tag">&lt;/div&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="85"></td>
+        <td class="line-content"><span class="html-tag">&lt;p&gt;</span>Bind different variables, to customize color or other styles. Please reference the props below.<span class="html-tag">&lt;/p&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="86"></td>
+        <td class="line-content"><span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">language-vue highlighter-rouge</span>"&gt;</span><span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">highlight</span>"&gt;</span><span class="html-tag">&lt;pre <span class="html-attribute-name">class</span>="<span class="html-attribute-value">highlight</span>"&gt;</span><span class="html-tag">&lt;code&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;lt;<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">k</span>"&gt;</span>template<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;gt;<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="87"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;lt;pagination<span class="html-tag">&lt;/span&gt;</span> </td>
+      </tr>
+      <tr>
+        <td class="line-number" value="88"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">na</span>"&gt;</span>:totalPages=<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">s</span>"&gt;</span>"totalPages"<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="89"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">na</span>"&gt;</span>:color=<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">s</span>"&gt;</span>"color"<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="90"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">na</span>"&gt;</span>:background=<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">s</span>"&gt;</span>"background"<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="91"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">na</span>"&gt;</span>:weight=<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">s</span>"&gt;</span>"weight"<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;gt;<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="92"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;lt;/pagination&amp;gt;<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="93"></td>
+        <td class="line-content"><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;lt;/<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">k</span>"&gt;</span>template<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;gt;<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="94"></td>
+        <td class="line-content"><br></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="95"></td>
+        <td class="line-content"><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;lt;<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">k</span>"&gt;</span>script<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;gt;<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="96"></td>
+        <td class="line-content"><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">k</span>"&gt;</span>export<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">k</span>"&gt;</span>default<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>{<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="97"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">na</span>"&gt;</span>name<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>:<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">dl</span>"&gt;</span>'<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">s1</span>"&gt;</span>App<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">dl</span>"&gt;</span>'<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>,<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="98"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nx</span>"&gt;</span>data<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>()<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>{<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="99"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">k</span>"&gt;</span>return<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>{<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="100"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">na</span>"&gt;</span>totalPages<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>:<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">mi</span>"&gt;</span>28<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>,<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="101"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">na</span>"&gt;</span>color<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>:<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">dl</span>"&gt;</span>'<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">s1</span>"&gt;</span>#cca8bb<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">dl</span>"&gt;</span>'<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>,<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="102"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">na</span>"&gt;</span>background<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>:<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">dl</span>"&gt;</span>'<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">s1</span>"&gt;</span>#fffafa<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">dl</span>"&gt;</span>'<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>,<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="103"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">na</span>"&gt;</span>weight<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>:<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">dl</span>"&gt;</span>'<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">s1</span>"&gt;</span>light<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">dl</span>"&gt;</span>'<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="104"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>}<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="105"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>}<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="106"></td>
+        <td class="line-content"><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;lt;/<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">k</span>"&gt;</span>script<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;gt;<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="107"></td>
+        <td class="line-content"><span class="html-tag">&lt;/code&gt;</span><span class="html-tag">&lt;/pre&gt;</span><span class="html-tag">&lt;/div&gt;</span><span class="html-tag">&lt;/div&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="108"></td>
+        <td class="line-content"><span class="html-tag">&lt;h3 <span class="html-attribute-name">id</span>="<span class="html-attribute-value">custom-event</span>"&gt;</span>Custom Event<span class="html-tag">&lt;/h3&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="109"></td>
+        <td class="line-content"><span class="html-tag">&lt;p&gt;</span>Listen for a custom event <span class="html-tag">&lt;code <span class="html-attribute-name">class</span>="<span class="html-attribute-value">language-plaintext highlighter-rouge</span>"&gt;</span>@changePage<span class="html-tag">&lt;/code&gt;</span> when page get changed.<span class="html-tag">&lt;/p&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="110"></td>
+        <td class="line-content"><span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">language-vue highlighter-rouge</span>"&gt;</span><span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">highlight</span>"&gt;</span><span class="html-tag">&lt;pre <span class="html-attribute-name">class</span>="<span class="html-attribute-value">highlight</span>"&gt;</span><span class="html-tag">&lt;code&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;lt;<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">k</span>"&gt;</span>template<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;gt;<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="111"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;lt;pagination<span class="html-tag">&lt;/span&gt;</span> </td>
+      </tr>
+      <tr>
+        <td class="line-number" value="112"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">na</span>"&gt;</span>:totalPages=<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">s</span>"&gt;</span>"totalPages"<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="113"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">err</span>"&gt;</span>@<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">na</span>"&gt;</span>changePage=<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">s</span>"&gt;</span>"getCurrentPage(page)"<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;gt;<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="114"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;lt;/pagination&amp;gt;<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="115"></td>
+        <td class="line-content"><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;lt;/<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">k</span>"&gt;</span>template<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;gt;<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="116"></td>
+        <td class="line-content"><br></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="117"></td>
+        <td class="line-content"><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;lt;<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">k</span>"&gt;</span>script<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;gt;<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="118"></td>
+        <td class="line-content"><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">k</span>"&gt;</span>export<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">k</span>"&gt;</span>default<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>{<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="119"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">na</span>"&gt;</span>name<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>:<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">dl</span>"&gt;</span>'<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">s1</span>"&gt;</span>App<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">dl</span>"&gt;</span>'<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>,<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="120"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nx</span>"&gt;</span>data<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>()<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>{<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="121"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">k</span>"&gt;</span>return<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>{<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="122"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">na</span>"&gt;</span>totalPages<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>:<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">mi</span>"&gt;</span>28<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>,<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="123"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>}<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="124"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>},<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="125"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">na</span>"&gt;</span>methods<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>:<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>{<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="126"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nx</span>"&gt;</span>getCurrentPage<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>(<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nx</span>"&gt;</span>page<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>)<span class="html-tag">&lt;/span&gt;</span> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>{<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="127"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nx</span>"&gt;</span>console<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>.<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nx</span>"&gt;</span>log<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>(<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nx</span>"&gt;</span>page<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>)<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="128"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>}<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="129"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">p</span>"&gt;</span>}<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="130"></td>
+        <td class="line-content"><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;lt;/<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">k</span>"&gt;</span>script<span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">nt</span>"&gt;</span>&amp;gt;<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="131"></td>
+        <td class="line-content"><span class="html-tag">&lt;/code&gt;</span><span class="html-tag">&lt;/pre&gt;</span><span class="html-tag">&lt;/div&gt;</span><span class="html-tag">&lt;/div&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="132"></td>
+        <td class="line-content"><span class="html-tag">&lt;h3 <span class="html-attribute-name">id</span>="<span class="html-attribute-value">props</span>"&gt;</span>Props<span class="html-tag">&lt;/h3&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="133"></td>
+        <td class="line-content"><span class="html-tag">&lt;p&gt;</span>Name | Description | Default | Type<span class="html-tag">&lt;/p&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="134"></td>
+        <td class="line-content"><span class="html-tag">&lt;ul&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="135"></td>
+        <td class="line-content"> <span class="html-tag">&lt;li&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="136"></td>
+        <td class="line-content"> <span class="html-tag">&lt;table&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="137"></td>
+        <td class="line-content"> <span class="html-tag">&lt;tbody&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="138"></td>
+        <td class="line-content"> <span class="html-tag">&lt;tr&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="139"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span><span class="html-tag">&lt;code <span class="html-attribute-name">class</span>="<span class="html-attribute-value">language-plaintext highlighter-rouge</span>"&gt;</span>totalPages<span class="html-tag">&lt;/code&gt;</span><span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="140"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span>Total count of pages.<span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="141"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span>20<span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="142"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span><span class="html-tag">&lt;code <span class="html-attribute-name">class</span>="<span class="html-attribute-value">language-plaintext highlighter-rouge</span>"&gt;</span>Number<span class="html-tag">&lt;/code&gt;</span><span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="143"></td>
+        <td class="line-content"> <span class="html-tag">&lt;/tr&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="144"></td>
+        <td class="line-content"> <span class="html-tag">&lt;tr&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="145"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span><span class="html-tag">&lt;code <span class="html-attribute-name">class</span>="<span class="html-attribute-value">language-plaintext highlighter-rouge</span>"&gt;</span>initialPage<span class="html-tag">&lt;/code&gt;</span><span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="146"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span>Set a default page.<span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="147"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span>1<span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="148"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span><span class="html-tag">&lt;code <span class="html-attribute-name">class</span>="<span class="html-attribute-value">language-plaintext highlighter-rouge</span>"&gt;</span>Number<span class="html-tag">&lt;/code&gt;</span><span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="149"></td>
+        <td class="line-content"> <span class="html-tag">&lt;/tr&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="150"></td>
+        <td class="line-content"> <span class="html-tag">&lt;tr&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="151"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span><span class="html-tag">&lt;code <span class="html-attribute-name">class</span>="<span class="html-attribute-value">language-plaintext highlighter-rouge</span>"&gt;</span>pre<span class="html-tag">&lt;/code&gt;</span><span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="152"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span>Set text for button Prev.<span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="153"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span>‘Prev’<span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="154"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span><span class="html-tag">&lt;code <span class="html-attribute-name">class</span>="<span class="html-attribute-value">language-plaintext highlighter-rouge</span>"&gt;</span>String<span class="html-tag">&lt;/code&gt;</span><span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="155"></td>
+        <td class="line-content"> <span class="html-tag">&lt;/tr&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="156"></td>
+        <td class="line-content"> <span class="html-tag">&lt;tr&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="157"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span><span class="html-tag">&lt;code <span class="html-attribute-name">class</span>="<span class="html-attribute-value">language-plaintext highlighter-rouge</span>"&gt;</span>next<span class="html-tag">&lt;/code&gt;</span><span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="158"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span>Set text for button Next.<span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="159"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span>‘Next’<span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="160"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span><span class="html-tag">&lt;code <span class="html-attribute-name">class</span>="<span class="html-attribute-value">language-plaintext highlighter-rouge</span>"&gt;</span>String<span class="html-tag">&lt;/code&gt;</span><span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="161"></td>
+        <td class="line-content"> <span class="html-tag">&lt;/tr&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="162"></td>
+        <td class="line-content"> <span class="html-tag">&lt;tr&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="163"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span><span class="html-tag">&lt;code <span class="html-attribute-name">class</span>="<span class="html-attribute-value">language-plaintext highlighter-rouge</span>"&gt;</span>color<span class="html-tag">&lt;/code&gt;</span><span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="164"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span>Customize theme color, which will set the font color and the border color.<span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="165"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span>‘#2C3E50’<span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="166"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span><span class="html-tag">&lt;code <span class="html-attribute-name">class</span>="<span class="html-attribute-value">language-plaintext highlighter-rouge</span>"&gt;</span>String<span class="html-tag">&lt;/code&gt;</span><span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="167"></td>
+        <td class="line-content"> <span class="html-tag">&lt;/tr&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="168"></td>
+        <td class="line-content"> <span class="html-tag">&lt;tr&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="169"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span><span class="html-tag">&lt;code <span class="html-attribute-name">class</span>="<span class="html-attribute-value">language-plaintext highlighter-rouge</span>"&gt;</span>background<span class="html-tag">&lt;/code&gt;</span><span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="170"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span>Customize background color.<span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="171"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span>‘#FFFFFF’<span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="172"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span><span class="html-tag">&lt;code <span class="html-attribute-name">class</span>="<span class="html-attribute-value">language-plaintext highlighter-rouge</span>"&gt;</span>String<span class="html-tag">&lt;/code&gt;</span><span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="173"></td>
+        <td class="line-content"> <span class="html-tag">&lt;/tr&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="174"></td>
+        <td class="line-content"> <span class="html-tag">&lt;tr&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="175"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span><span class="html-tag">&lt;code <span class="html-attribute-name">class</span>="<span class="html-attribute-value">language-plaintext highlighter-rouge</span>"&gt;</span>weight<span class="html-tag">&lt;/code&gt;</span><span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="176"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span>Pagination style. Providing two kinds of style: <span class="html-tag">&lt;strong&gt;</span>normal<span class="html-tag">&lt;/strong&gt;</span> or <span class="html-tag">&lt;strong&gt;</span>light<span class="html-tag">&lt;/strong&gt;</span>.<span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="177"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span>normal<span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="178"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span><span class="html-tag">&lt;code <span class="html-attribute-name">class</span>="<span class="html-attribute-value">language-plaintext highlighter-rouge</span>"&gt;</span>String<span class="html-tag">&lt;/code&gt;</span><span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="179"></td>
+        <td class="line-content"> <span class="html-tag">&lt;/tr&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="180"></td>
+        <td class="line-content"> <span class="html-tag">&lt;tr&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="181"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span><span class="html-tag">&lt;code <span class="html-attribute-name">class</span>="<span class="html-attribute-value">language-plaintext highlighter-rouge</span>"&gt;</span>ellipsis<span class="html-tag">&lt;/code&gt;</span><span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="182"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span>Set text for the break view indicator.<span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="183"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span>‘···’<span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="184"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span><span class="html-tag">&lt;code <span class="html-attribute-name">class</span>="<span class="html-attribute-value">language-plaintext highlighter-rouge</span>"&gt;</span>String<span class="html-tag">&lt;/code&gt;</span><span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="185"></td>
+        <td class="line-content"> <span class="html-tag">&lt;/tr&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="186"></td>
+        <td class="line-content"> <span class="html-tag">&lt;tr&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="187"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span><span class="html-tag">&lt;code <span class="html-attribute-name">class</span>="<span class="html-attribute-value">language-plaintext highlighter-rouge</span>"&gt;</span>font<span class="html-tag">&lt;/code&gt;</span><span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="188"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span>Set a font-family.<span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="189"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span>‘Avenir’<span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="190"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span><span class="html-tag">&lt;code <span class="html-attribute-name">class</span>="<span class="html-attribute-value">language-plaintext highlighter-rouge</span>"&gt;</span>String<span class="html-tag">&lt;/code&gt;</span><span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="191"></td>
+        <td class="line-content"> <span class="html-tag">&lt;/tr&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="192"></td>
+        <td class="line-content"> <span class="html-tag">&lt;/tbody&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="193"></td>
+        <td class="line-content"> <span class="html-tag">&lt;/table&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="194"></td>
+        <td class="line-content"> <span class="html-tag">&lt;/li&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="195"></td>
+        <td class="line-content"><span class="html-tag">&lt;/ul&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="196"></td>
+        <td class="line-content"><br></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="197"></td>
+        <td class="line-content"><span class="html-tag">&lt;h3 <span class="html-attribute-name">id</span>="<span class="html-attribute-value">events</span>"&gt;</span>Events<span class="html-tag">&lt;/h3&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="198"></td>
+        <td class="line-content"><span class="html-tag">&lt;p&gt;</span>Event |Description | Example<span class="html-tag">&lt;/p&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="199"></td>
+        <td class="line-content"><span class="html-tag">&lt;ul&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="200"></td>
+        <td class="line-content"> <span class="html-tag">&lt;li&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="201"></td>
+        <td class="line-content"> <span class="html-tag">&lt;table&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="202"></td>
+        <td class="line-content"> <span class="html-tag">&lt;tbody&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="203"></td>
+        <td class="line-content"> <span class="html-tag">&lt;tr&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="204"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span>changePage<span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="205"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span>This event will be triggered whenever page get changed. <span class="html-tag">&lt;br /&gt;</span>The callback receives the current page number as an argument.<span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="206"></td>
+        <td class="line-content"> <span class="html-tag">&lt;td&gt;</span><span class="html-tag">&lt;code <span class="html-attribute-name">class</span>="<span class="html-attribute-value">language-plaintext highlighter-rouge</span>"&gt;</span>@changePage="getCurrentPage(page)"<span class="html-tag">&lt;/code&gt;</span><span class="html-tag">&lt;/td&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="207"></td>
+        <td class="line-content"> <span class="html-tag">&lt;/tr&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="208"></td>
+        <td class="line-content"> <span class="html-tag">&lt;/tbody&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="209"></td>
+        <td class="line-content"> <span class="html-tag">&lt;/table&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="210"></td>
+        <td class="line-content"> <span class="html-tag">&lt;/li&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="211"></td>
+        <td class="line-content"><span class="html-tag">&lt;/ul&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="212"></td>
+        <td class="line-content"><br></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="213"></td>
+        <td class="line-content"><br></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="214"></td>
+        <td class="line-content"><br></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="215"></td>
+        <td class="line-content"> <span class="html-tag">&lt;footer <span class="html-attribute-name">class</span>="<span class="html-attribute-value">site-footer</span>"&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="216"></td>
+        <td class="line-content"> </td>
+      </tr>
+      <tr>
+        <td class="line-number" value="217"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">site-footer-owner</span>"&gt;</span><span class="html-tag">&lt;a <span class="html-attribute-name">href</span>="<a class="html-attribute-value html-external-link" target="_blank" href="https://github.com/chelseachel/vue-handy-pagination" rel="noreferrer noopener">https://github.com/chelseachel/vue-handy-pagination</a>"&gt;</span>vue-handy-pagination<span class="html-tag">&lt;/a&gt;</span> is maintained by <span class="html-tag">&lt;a <span class="html-attribute-name">href</span>="<a class="html-attribute-value html-external-link" target="_blank" href="https://github.com/chelseachel" rel="noreferrer noopener">https://github.com/chelseachel</a>"&gt;</span>chelseachel<span class="html-tag">&lt;/a&gt;</span>.<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="218"></td>
+        <td class="line-content"> </td>
+      </tr>
+      <tr>
+        <td class="line-number" value="219"></td>
+        <td class="line-content"> <span class="html-tag">&lt;span <span class="html-attribute-name">class</span>="<span class="html-attribute-value">site-footer-credits</span>"&gt;</span>This page was generated by <span class="html-tag">&lt;a <span class="html-attribute-name">href</span>="<a class="html-attribute-value html-external-link" target="_blank" href="https://pages.github.com/" rel="noreferrer noopener">https://pages.github.com</a>"&gt;</span>GitHub Pages<span class="html-tag">&lt;/a&gt;</span>.<span class="html-tag">&lt;/span&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="220"></td>
+        <td class="line-content"> <span class="html-tag">&lt;/footer&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="221"></td>
+        <td class="line-content"> <span class="html-tag">&lt;/section&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="222"></td>
+        <td class="line-content"><br></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="223"></td>
+        <td class="line-content"> </td>
+      </tr>
+      <tr>
+        <td class="line-number" value="224"></td>
+        <td class="line-content"> <span class="html-tag">&lt;/body&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="225"></td>
+        <td class="line-content"><span class="html-tag">&lt;/html&gt;</span></td>
+      </tr>
+      <tr>
+        <td class="line-number" value="226"></td>
+        <td class="line-content"><span class="html-end-of-file"></span></td>
+      </tr>
+    </tbody>
+  </table>
 </body>
+
 </html>
