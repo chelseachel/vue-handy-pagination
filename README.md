@@ -55,7 +55,7 @@ export default {
 </script>
 ```
 Bind different variables, to customize color or other styles. Please reference the props below. <br>
-**[* View demo.](https://chelseachel.github.io/vue-handy-pagination/)** <br>
+**[ View demo.](https://chelseachel.github.io/vue-handy-pagination/)** <br>
 ```vue
 <template>
   <pagination 
