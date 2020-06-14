@@ -4,7 +4,7 @@
 <br>
 A Vue.js pagination component.<br>
 Providing simple API, to customize pages, color and other styles very easily.<br>
-[Online demo](https://chelseachel.github.io/vue-handy-pagination/) <br>
+[Online Demo](https://chelseachel.github.io/vue-handy-pagination/) <br>
 <br>
 
 ## Installation
@@ -53,7 +53,8 @@ export default {
   }
 </script>
 ```
-Bind different variables, to customize color or other styles. Please reference the props below.
+Bind different variables, to customize color or other styles. Please reference the props below. <br>
+[View Demo](https://chelseachel.github.io/vue-handy-pagination/) <br>
 ```vue
 <template>
   <pagination 
