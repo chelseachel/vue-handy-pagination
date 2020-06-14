@@ -22,7 +22,7 @@ Vue.use(Pagination)
 ### CDN
 Use the source file in browser.
 ```js
-<script src="https://unpkg.com/vue-handy-pagination@latest/dist/index.js"></script>
+<script src="https://unpkg.com/vue-handy-pagination@latest/dist/vue.pagination.js"></script>
 ```
 ## Usage
 ### Basic Usage
@@ -60,7 +60,7 @@ Bind different variables, to customize color or other styles. Please reference t
     :totalPages="totalPages"
     :color="color"
     :background="background"
-    :weight="'light'">
+    :weight="weight">
   </pagination>
 </template>
 
@@ -71,7 +71,8 @@ export default {
     return {
       totalPages: 28,
       color: '#cca8bb',
-      background: '#fffafa'
+      background: '#fffafa',
+      weight: 'light'
     }
   }
 </script>
@@ -108,7 +109,7 @@ Name | Description | Default | Type
 ```initialPage``` | Set a default page. | 1 | ```Number``` 
 ```pre``` | Set text for button Prev. | 'Prev' | ```String``` 
 ```next``` | Set text for button Next. | 'Next' | ```String``` 
-```color``` | Customize theme color, which will set the font color and the border color. | '#666666' | ```String``` 
+```color``` | Customize theme color, which will set the font color and the border color. | '#2C3E50' | ```String``` 
 ```background``` | Customize background color. | '#FFFFFF' | ```String``` 
 ```weight``` | Pagination style. Providing two kinds of style: **normal** or **light**. | normal| ```String``` 
 ```ellipsis``` | Set text for the break view indicator. | '···' | ```String``` 

@@ -67,7 +67,9 @@ export default {
       const t = this.totalPages
       if (t <= 11) {
         const pages = []
-        t.forEach(x => pages.push(x))
+        for (let i = 1; i <= t; i++) {
+          pages.push(i)
+        }
         return pages
       } else {
         let pages = []
@@ -155,6 +157,7 @@ export default {
         white-space:nowrap
         overflow:hidden
         text-overflow: ellipsis
+        transition: background-color .1s
         &:first-child, 
         &:last-child
           padding: 0 16px
