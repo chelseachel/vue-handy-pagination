@@ -1,5 +1,5 @@
 # vue-handy-pagination
-[![](https://img.shields.io/badge/npm-v0.1.1-green)](https://www.npmjs.com/package/vue-handy-pagination)
+[![](https://img.shields.io/badge/npm-v0.1.7-green)](https://www.npmjs.com/package/vue-handy-pagination)
 <br>
 <br>
 A Vue.js pagination component.<br>
