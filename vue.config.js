@@ -1,7 +1,7 @@
 module.exports = {
   productionSourceMap: false,
   css: {
-    extract: true,
+    extract: false,
     sourceMap: false
   },
   filenameHashing: false,

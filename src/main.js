@@ -5,4 +5,3 @@ Pagination.install = (Vue) => {
 }
 
 export default Pagination
-/* eslint-disable */

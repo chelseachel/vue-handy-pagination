@@ -1,5 +1,5 @@
 <template>
-  <div class="pages-container" id="pagination">
+  <div id="pagination" class="pages-container">
     <ul class="pages">
       <li class="page" @click="handleClickControl(-1)">{{this.pre}}</li>
       <li class="page" 
@@ -41,7 +41,7 @@ export default {
     },
     color: {
       type: String,
-      default: '#666'
+      default: '#2C3E50'
     },
     background: {
       type: String,
@@ -127,7 +127,7 @@ export default {
   .pages-container
     -webkit-font-smoothing antialiased
     -moz-osx-font-smoothing grayscale
-    --theme-color: #666
+    --theme-color: #2C3E50
     --background-color: #fff
     --font-family: Avenir, Helvetica, Arial, sans-serif
     --border-width: 2px
