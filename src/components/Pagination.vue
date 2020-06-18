@@ -1,16 +1,33 @@
 <template>
   <div id="pagination" class="pages-container">
     <ul class="pages">
-      <li class="page" @click="handleClickControl(-1)">{{this.pre}}</li>
+      <li class="page" 
+        :class="preHover ? 'mobile-hover' : ''" 
+        @click="handleClickControl(-1)"
+        @touchstart="preHover = true"
+        @touchend="preHover = false"
+      >
+        {{pre}}
+      </li>
       <li class="page" 
         v-for="(item, index) in pages" 
         :key="index"
         :class="{ellipsis: item === ellipsis, active: item === currentPage}"
         @click="handleClickActive(item)"
+        @touchstart="addMobileHover(item, index)"
+        @touchend="removeMobileHover(item, index)"
+        ref="page"
       >
         <span>{{item}}</span>
       </li>
-      <li class="page" @click="handleClickControl(+1)">{{this.next}}</li>
+      <li class="page" 
+        :class="nextHover ? 'mobile-hover' : ''" 
+        @click="handleClickControl(+1)"
+        @touchstart="nextHover = true"
+        @touchend="nextHover = false"
+      >
+        {{next}}
+      </li>
     </ul>
   </div>
 </template>
@@ -58,7 +75,9 @@ export default {
   },
   data () {
     return {
-      currentPage: this.initialPage
+      currentPage: this.initialPage,
+      preHover: false,
+      nextHover: false
     }
   },
   computed: {
@@ -96,6 +115,16 @@ export default {
       this.currentPage += n
       this.$emit('changePage', this.currentPage)
     },
+    addMobileHover(item, index) {
+      if (item !== this.currentPage) {
+        this.$refs.page[index].className = "page mobile-hover"
+      }
+    },
+    removeMobileHover(item, index) {
+      if (item !== this.currentPage) {
+        this.$refs.page[index].className = "page"
+      }
+    },
     setColor(color, background) {
       this.$el.style.setProperty('--theme-color', color)
       this.$el.style.setProperty('--background-color', background)
@@ -116,6 +145,7 @@ export default {
     }
   },
   mounted () {
+
     this.setColor(this.color, this.background)
     this.setFont(this.font)
     this.setWeight(this.weight)
@@ -137,7 +167,8 @@ export default {
     .pages
       position: relative
       padding: 20px 0
-      text-align center
+      text-align: center
+      white-space: nowrap
       .page
         margin: 0 3px
         height: 38px
@@ -154,19 +185,25 @@ export default {
         font-weight: var(--font-weight)
         text-decoration: none
         cursor: pointer
-        white-space:nowrap
-        overflow:hidden
+        white-space: nowrap
+        overflow: hidden
         text-overflow: ellipsis
         transition: background-color .1s
         &:first-child, 
         &:last-child
           padding: 0 16px
           margin: 0 12px
-        &:hover
-          background-color: var(--theme-color)
-          border-color: var(--theme-color)
-          color: var(--background-color)
-          opacity: .5
+        @media(hover: hover) and (pointer: fine)
+          &:hover
+            background-color: var(--theme-color)
+            border-color: var(--theme-color)
+            color: var(--background-color)
+            opacity: .5
+      .mobile-hover
+        background-color: var(--theme-color)
+        border-color: var(--theme-color)
+        color: var(--background-color)
+        opacity: .5
       .active
         background-color: var(--theme-color)
         border-color: var(--theme-color)

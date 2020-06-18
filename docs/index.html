@@ -118,7 +118,15 @@
       padding: 0 16px;
       margin: 0 12px;
     }
-    .pages-container .pages .page:hover {
+    @media (hover: hover) and (pointer: fine) {
+      .pages-container .pages .page:hover {
+        background-color: var(--theme-color);
+        border-color: var(--theme-color);
+        color: var(--background-color);
+        opacity: 0.5;
+      }
+    }
+    .pages-container .pages .mobile-hover {
       background-color: var(--theme-color);
       border-color: var(--theme-color);
       color: var(--background-color);
@@ -204,23 +212,42 @@
           default: 'Avenir, Helvetica, Arial, sans-serif'
         }
       },
-      template: `<div class="pages-container" id="pagination">
+      template: `<div id="pagination" class="pages-container">
                   <ul class="pages">
-                    <li class="page" @click="handleClickControl(-1)">{{this.pre}}</li>
+                    <li class="page" 
+                      :class="preHover ? 'mobile-hover' : ''" 
+                      @click="handleClickControl(-1)"
+                      @touchstart="preHover = true"
+                      @touchend="preHover = false"
+                    >
+                      {{pre}}
+                    </li>
                     <li class="page" 
                       v-for="(item, index) in pages" 
                       :key="index"
                       :class="{ellipsis: item === ellipsis, active: item === currentPage}"
                       @click="handleClickActive(item)"
+                      @touchstart="addMobileHover(item, index)"
+                      @touchend="removeMobileHover(item, index)"
+                      ref="page"
                     >
                       <span>{{item}}</span>
                     </li>
-                    <li class="page" @click="handleClickControl(+1)">{{this.next}}</li>
+                    <li class="page" 
+                      :class="nextHover ? 'mobile-hover' : ''" 
+                      @click="handleClickControl(+1)"
+                      @touchstart="nextHover = true"
+                      @touchend="nextHover = false"
+                    >
+                      {{next}}
+                    </li>
                   </ul>
                 </div>`,
       data () {
         return {
-          currentPage: this.initialPage
+          currentPage: this.initialPage,
+          preHover: false,
+          nextHover: false
         }
       },
       computed: {
@@ -257,6 +284,16 @@
           if (this.currentPage === 1 && n === -1 || this.currentPage === this.totalPages && n === 1) return
           this.currentPage += n
           this.$emit('changePage', this.currentPage)
+        },
+        addMobileHover(item, index) {
+          if (item !== this.currentPage) {
+            this.$refs.page[index].className = "page mobile-hover"
+          }
+        },
+        removeMobileHover(item, index) {
+          if (item !== this.currentPage) {
+            this.$refs.page[index].className = "page"
+          }
         },
         setColor(color, background) {
           this.$el.style.setProperty('--theme-color', color)
