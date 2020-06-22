@@ -22,7 +22,7 @@
     }
     .github {
       position: absolute;
-      left: -98px;
+      right: -98px;
       top: 20px;
       width: 72px;
       height: 28px;
@@ -31,8 +31,8 @@
       font-size: 15px;
       font-weight: 300;
       color: #fff;
-      background-color: rosybrown;
-      border-radius: 2px;
+      background-color: rgba(255,255,255,.1);
+      border-radius: 3px;
       border: 1px solid #fff;
       text-decoration: none;
     }
@@ -355,12 +355,13 @@
         }
       }
     }
-    Vue.component('pagination-a', PaginationA)
-    Vue.component('pagination-b', PaginationB)
+    
     new Vue({
       el: '#app',
       components: {
         'pagination': Pagination,
+        'pagination-a': PaginationA,
+        'pagination-b': PaginationB
       }
     })
   </script>
