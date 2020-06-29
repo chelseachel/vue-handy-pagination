@@ -1,7 +1,12 @@
 {
   "name": "vue-handy-pagination",
   "version": "0.1.8",
+  "private": false,
   "main": "dist/pagination.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chelseachel/vue-handy-pagination"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",

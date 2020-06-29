@@ -2,6 +2,8 @@ const path = require('path')
 
 module.exports = {
   configureWebpack: {
+    // entry: './src/main.js',
+    entry: './src/index.js',
     output: {
       filename: 'pagination.js',
       library: 'Pagination', // library 指定的是 require 时的模块名

@@ -1,19 +1,9 @@
-import Pagination from './components/Pagination.vue'
+import Vue from 'vue'
+import Pagination from './index.js'
 
-Pagination.install = (Vue) => {
-  Vue.component(Pagination.name, Pagination)
-}
+Vue.config.productionTip = false
 
-export default Pagination
-
-
-// import Vue from 'vue'
-// import Pagination from './components/Pagination.vue'
-
-// Vue.config.productionTip = false
-
-
-// new Vue({
-//   render: h => h(Pagination)
-// }).$mount('#pagination')
+new Vue({
+  render: h => h(Pagination)
+}).$mount('#pagination')
 
