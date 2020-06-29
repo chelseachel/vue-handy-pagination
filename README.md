@@ -17,7 +17,7 @@ npm install vue-handy-pagination --save
 Import the component. 
 ```js
 import Vue from 'vue'
-import Pagination from 'Pagination'
+import Pagination from 'vue-handy-pagination'
 Vue.use(Pagination)
 ```
 ### CDN
