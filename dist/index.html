@@ -10,15 +10,32 @@
 
 <body>
   <div id="app">
-    <pagination></pagination>
+    <pagination-eg></pagination-eg>
   </div>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js'></script>
   <script src='./pagination.js'></script>
   <script>
+    var PaginationEg = {
+      components: {
+        'pagination': Pagination
+      },
+      template: `<pagination 
+                  :totalPages="totalPages"
+                  :initialPage="initialPage"
+                  :color="color"
+                  ></pagination>`,
+      data() {
+        return {
+          totalPages: 28,
+          initialPage: 6,
+          color: "rosybrown",
+        }
+      }
+    }
     new Vue({
       el: '#app',
       components: {
-        'pagination': Pagination
+        'pagination-eg': PaginationEg
       }
     })
   </script>
