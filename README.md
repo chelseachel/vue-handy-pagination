@@ -30,8 +30,8 @@ Use the source file in browser.
 ### Basic Usage
 ```vue
 <pagination 
-  :totalPages="28"
-  :initialPage="1">
+  totalPages="28"
+  initialPage="1">
 </pagination>
 ```
 #### Example
@@ -47,6 +47,7 @@ Bind a variable.
 <script>
 export default {
   name: 'App',
+  components: { Pagination },
   data () {
     return {
       totalPages: 28,
@@ -69,6 +70,7 @@ Bind different variables, to customize color or other styles. Please reference t
 <script>
 export default {
   name: 'App',
+  components: { Pagination },
   data () {
     return {
       totalPages: 28,
@@ -92,6 +94,7 @@ Listen for a custom event ```@changePage``` when page get changed.
 <script>
 export default {
   name: 'App',
+  components: { Pagination },
   data () {
     return {
       totalPages: 28,
